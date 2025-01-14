@@ -27,6 +27,12 @@
                 <version>${revision}</version>
             </dependency>
 
+            <dependency>
+                <groupId>cn.yang.foundational.capability</groupId>
+                <artifactId>foundational-capability-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
