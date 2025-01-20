@@ -10,34 +10,34 @@ public class BaseEntity extends BaseTimeEntity {
     /**
      * 创建者id
      */
-    private String createUserId;
+    private Long createUserId;
 
     /**
      * 更新者id
      */
-    private String updateUserId;
+    private Long updateUserId;
 
-    public String getCreateUserId() {
+    public Long getCreateUserId() {
         return createUserId;
     }
 
-    public void setCreateUserId(String createUserId) {
+    public void setCreateUserId(Long createUserId) {
         this.createUserId = createUserId;
     }
 
-    public String getUpdateUserId() {
+    public Long getUpdateUserId() {
         return updateUserId;
     }
 
-    public void setUpdateUserId(String updateUserId) {
+    public void setUpdateUserId(Long updateUserId) {
         this.updateUserId = updateUserId;
     }
 
     @Override
     public String toString() {
         return "BaseEntity{" +
-                "createUserId='" + createUserId + '\'' +
-                ", updateUserId='" + updateUserId + '\'' +
+                "createUserId=" + createUserId +
+                ", updateUserId=" + updateUserId +
                 "} " + super.toString();
     }
 }
