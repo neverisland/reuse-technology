@@ -7,8 +7,7 @@ import jakarta.annotation.Resource;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -21,6 +20,7 @@ import java.util.List;
  */
 @Aspect
 @Component
+@ConditionalOnProperty(prefix = "data.assignment", name = "enable")
 public class DataAssignmentAspect {
 
     @Resource

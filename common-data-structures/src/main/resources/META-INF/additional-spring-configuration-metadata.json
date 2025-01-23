@@ -1,0 +1,11 @@
+{
+  "properties": [
+    {
+      "name": "data.assignment.enable",
+      "type": "java.lang.Boolean",
+      "description": "是否启用基础数据赋值.",
+      "defaultValue": false
+    }
+  ],
+  "hint": []
+}
