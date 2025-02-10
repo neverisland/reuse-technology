@@ -2,6 +2,7 @@ package cn.yang.common.data.structure.vo.page;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,6 +34,23 @@ public class PageResult<T> implements Serializable {
      * 数据集合
      */
     private List<T> list;
+
+    public PageResult() {
+    }
+
+    public PageResult(PageQuery pageQuery) {
+        this.current = pageQuery.getCurrent();
+        this.size = pageQuery.getSize();
+        this.total = 0;
+        this.list = new ArrayList<>();
+    }
+
+    public PageResult(PageQuery pageQuery, List<T> list, Integer total) {
+        this.current = pageQuery.getCurrent();
+        this.size = pageQuery.getSize();
+        this.total = total;
+        this.list = list;
+    }
 
     public Integer getCurrent() {
         return current;

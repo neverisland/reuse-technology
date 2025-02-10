@@ -5,7 +5,7 @@ package cn.yang.common.data.structure.exception;
  *
  * @author : 未见清海
  */
-public class NullDataException extends RuntimeException {
+public class NullDataException extends Exception {
 
     /**
      * Constructs a new runtime exception with the specified detail message.

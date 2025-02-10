@@ -60,4 +60,13 @@ public class BusinessException extends RuntimeException implements Serializable,
     public String getCodeMsg() {
         return resultCodeInterface.getCodeMsg();
     }
+
+    /**
+     * 获取子状态异常的详细描述
+     *
+     * @return 子状态异常的详细描述
+     */
+    public String getDetails() {
+        return details;
+    }
 }
