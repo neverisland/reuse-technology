@@ -26,17 +26,19 @@ public class BusinessException extends RuntimeException implements Serializable,
     protected final String details;
 
     public BusinessException(ResultCodeInterface resultCodeInterface) {
+        super(resultCodeInterface.getCodeMsg());
         this.resultCodeInterface = resultCodeInterface;
         this.details = "";
     }
 
     public BusinessException(ResultCodeInterface resultCodeInterface, String details) {
+        super(resultCodeInterface.getCodeMsg() + "," + details);
         this.resultCodeInterface = resultCodeInterface;
         this.details = details;
     }
 
     public BusinessException(ResultCodeInterface resultCodeInterface, String details, Throwable cause) {
-        super(cause);
+        super(resultCodeInterface.getCodeMsg() + "," + details, cause);
         this.resultCodeInterface = resultCodeInterface;
         this.details = details;
     }
