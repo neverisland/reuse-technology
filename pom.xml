@@ -22,6 +22,8 @@
 
         <spring-boot.version>3.4.1</spring-boot.version>
 
+        <bcprov-jdk18on.version>1.78.1</bcprov-jdk18on.version>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -31,6 +33,7 @@
         <module>reuse-dependencies</module>
         <module>common-data-structures</module>
         <module>foundational-capability-starter</module>
+        <module>security-crypto-starter</module>
     </modules>
 
     <dependencyManagement>
@@ -42,6 +45,12 @@
                 <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk18on</artifactId>
+                <version>${bcprov-jdk18on.version}</version>
             </dependency>
 
         </dependencies>

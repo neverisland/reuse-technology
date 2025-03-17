@@ -33,6 +33,11 @@
                 <version>${revision}</version>
             </dependency>
 
+            <dependency>
+                <groupId>cn.yang.security.crypto</groupId>
+                <artifactId>security-crypto-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
