@@ -1,5 +1,7 @@
 package cn.yang.foundational.capability.id.generator;
 
+import com.github.f4b6a3.ulid.UlidCreator;
+
 import java.util.UUID;
 
 /**
@@ -7,14 +9,12 @@ import java.util.UUID;
  */
 public class LocalIdGenerator implements IdGenerator {
 
-    private static final Sequence sequence = new Sequence();
-
     public LocalIdGenerator() {
     }
 
     @Override
-    public Long getLongId() {
-        return sequence.nextId();
+    public String getId() {
+        return UlidCreator.getUlid().toString();
     }
 
     @Override

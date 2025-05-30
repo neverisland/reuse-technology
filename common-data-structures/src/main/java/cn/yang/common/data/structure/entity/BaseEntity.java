@@ -1,10 +1,14 @@
 package cn.yang.common.data.structure.entity;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 /**
  * 基础业务实体
  *
  * @author : 未见清海
  */
+@Data
 public class BaseEntity extends BaseTimeEntity {
 
     /**
@@ -17,27 +21,4 @@ public class BaseEntity extends BaseTimeEntity {
      */
     private Long updateUserId;
 
-    public Long getCreateUserId() {
-        return createUserId;
-    }
-
-    public void setCreateUserId(Long createUserId) {
-        this.createUserId = createUserId;
-    }
-
-    public Long getUpdateUserId() {
-        return updateUserId;
-    }
-
-    public void setUpdateUserId(Long updateUserId) {
-        this.updateUserId = updateUserId;
-    }
-
-    @Override
-    public String toString() {
-        return "BaseEntity{" +
-                "createUserId=" + createUserId +
-                ", updateUserId=" + updateUserId +
-                "} " + super.toString();
-    }
 }

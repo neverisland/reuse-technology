@@ -1,9 +1,18 @@
 package cn.yang.foundational.capability.sliding.verification.code.dto;
 
+import lombok.Data;
+
+import java.io.Serial;
+import java.io.Serializable;
+
 /**
  * 滑动验证码出参基础数据
  */
-public class SlidingVerificationCodeBaseReturn {
+@Data
+public class SlidingVerificationCodeBaseReturn implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = -6278556479686229731L;
 
     /**
      * 背景图片base64
@@ -20,36 +29,4 @@ public class SlidingVerificationCodeBaseReturn {
      */
     private Integer height;
 
-    public String getBackgroundImg() {
-        return backgroundImg;
-    }
-
-    public void setBackgroundImg(String backgroundImg) {
-        this.backgroundImg = backgroundImg;
-    }
-
-    public String getVerifyImg() {
-        return verifyImg;
-    }
-
-    public void setVerifyImg(String verifyImg) {
-        this.verifyImg = verifyImg;
-    }
-
-    public Integer getHeight() {
-        return height;
-    }
-
-    public void setHeight(Integer height) {
-        this.height = height;
-    }
-
-    @Override
-    public String toString() {
-        return "SlidingVerificationCodeBaseReturn{" +
-                "backgroundImg='" + backgroundImg + '\'' +
-                ", verifyImg='" + verifyImg + '\'' +
-                ", height=" + height +
-                '}';
-    }
 }

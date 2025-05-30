@@ -8,11 +8,11 @@ package cn.yang.foundational.capability.id.generator;
 public interface IdGenerator {
 
     /**
-     * 获取Long类型的ID
+     * 获取String类型的ID
      *
      * @return ID
      */
-    Long getLongId();
+    String getId();
 
     /**
      * 获取32位UUID
