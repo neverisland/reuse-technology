@@ -15,6 +15,6 @@ public interface CurrentlyUserFacade {
      *
      * @return 当前登录用户id
      */
-    Long getCurrentlyUserId() throws NotLoginException;
+    String getCurrentlyUserId() throws NotLoginException;
 
 }

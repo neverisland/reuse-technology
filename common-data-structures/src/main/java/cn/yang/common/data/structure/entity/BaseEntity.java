@@ -1,7 +1,6 @@
 package cn.yang.common.data.structure.entity;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * 基础业务实体
@@ -14,11 +13,11 @@ public class BaseEntity extends BaseTimeEntity {
     /**
      * 创建者id
      */
-    private Long createUserId;
+    private String createUserId;
 
     /**
      * 更新者id
      */
-    private Long updateUserId;
+    private String updateUserId;
 
 }

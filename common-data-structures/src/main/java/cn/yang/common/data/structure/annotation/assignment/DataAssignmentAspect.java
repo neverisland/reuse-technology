@@ -65,8 +65,8 @@ public class DataAssignmentAspect {
                     ((BaseEntity) baseTimeEntity).setCreateUserId(currentlyUserFacade.getCurrentlyUserId());
                     ((BaseEntity) baseTimeEntity).setUpdateUserId(currentlyUserFacade.getCurrentlyUserId());
                 } catch (NotLoginException loginException) {
-                    ((BaseEntity) baseTimeEntity).setCreateUserId(0L);
-                    ((BaseEntity) baseTimeEntity).setUpdateUserId(0L);
+                    ((BaseEntity) baseTimeEntity).setCreateUserId("");
+                    ((BaseEntity) baseTimeEntity).setUpdateUserId("");
                 }
             }
         }
@@ -76,7 +76,7 @@ public class DataAssignmentAspect {
                 try {
                     ((BaseEntity) baseTimeEntity).setUpdateUserId(currentlyUserFacade.getCurrentlyUserId());
                 } catch (NotLoginException loginException) {
-                    ((BaseEntity) baseTimeEntity).setUpdateUserId(0L);
+                    ((BaseEntity) baseTimeEntity).setUpdateUserId("");
                 }
             }
         }

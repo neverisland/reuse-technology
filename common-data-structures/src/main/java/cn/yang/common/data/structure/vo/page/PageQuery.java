@@ -1,11 +1,18 @@
 package cn.yang.common.data.structure.vo.page;
 
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Setter;
+
+import java.io.Serializable;
+
 /**
  * 分页查询条件
  *
  * @author : 未见清海
  */
-public class PageQuery {
+@Data
+public class PageQuery implements Serializable {
 
     /**
      * 当前页 ,分页使用
@@ -20,33 +27,11 @@ public class PageQuery {
     /**
      * 偏移量
      */
+    @Setter(AccessLevel.NONE)
     private Integer offset;
-
-    public Integer getCurrent() {
-        return current;
-    }
-
-    public void setCurrent(Integer current) {
-        this.current = current;
-    }
-
-    public Integer getSize() {
-        return size;
-    }
-
-    public void setSize(Integer size) {
-        this.size = size;
-    }
 
     public Integer getOffset() {
         return (current - 1) * size;
     }
 
-    @Override
-    public String toString() {
-        return "PageQuery{" +
-                "current=" + current +
-                ", size=" + size +
-                '}';
-    }
 }
