@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yang.authentication.authorization.user.mapper.RoleMapper">
+
+    <resultMap id="BaseResultMap" type="cn.yang.authentication.authorization.user.dal.RoleDo">
+        <id property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="mark" column="mark" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="TINYINT"/>
+        <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+
+        <collection property="permissionList" ofType="cn.yang.authentication.authorization.user.dal.PermissionDo"
+                    javaType="java.util.List">
+            <id property="id" column="p_id" jdbcType="VARCHAR"/>
+            <result property="mark" column="p_mark" jdbcType="VARCHAR"/>
+            <result property="description" column="p_description" jdbcType="VARCHAR"/>
+            <result property="createTime" column="p_create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="p_update_time" jdbcType="TIMESTAMP"/>
+        </collection>
+    </resultMap>
+
+    <sql id="Base_Query">
+        id
+        , mark, name, description, type, create_user_id,
+         create_time, update_user_id, update_time
+    </sql>
+
+    <!-- 新增数据 -->
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="cn.yang.authentication.authorization.user.entity.Role"
+            useGeneratedKeys="true">
+        insert into role (id, mark, name, description, type, create_user_id, update_user_id)
+        values (
+        #{id, jdbcType=VARCHAR},
+        #{mark, jdbcType=VARCHAR},
+        #{name, jdbcType=VARCHAR},
+        #{description, jdbcType=VARCHAR},
+        #{type, jdbcType=TINYINT},
+        #{createUserId, jdbcType=BIGINT},
+        #{updateUserId, jdbcType=BIGINT})
+    </insert>
+
+    <!-- 新增数据(过滤为空数据) -->
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="cn.yang.authentication.authorization.user.entity.Role" useGeneratedKeys="true">
+        insert into role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="mark != null">mark,</if>
+            <if test="name != null">name,</if>
+            <if test="description != null">description,</if>
+            <if test="type != null">type,</if>
+            <if test="createUserId != null">create_user_id,</if>
+            <if test="updateUserId != null">update_user_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id, jdbcType=VARCHAR},</if>
+            <if test="mark != null">#{mark, jdbcType=VARCHAR},</if>
+            <if test="name != null">#{name, jdbcType=VARCHAR},</if>
+            <if test="description != null">#{description, jdbcType=VARCHAR},</if>
+            <if test="type != null">#{type, jdbcType=TINYINT},</if>
+            <if test="createUserId != null">#{createUserId, jdbcType=BIGINT},</if>
+            <if test="updateUserId != null">#{updateUserId, jdbcType=BIGINT},</if>
+        </trim>
+    </insert>
+
+    <!--批量插入角色数据-->
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into role(id, mark, name, description, type, create_user_id, update_user_id)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id},
+            #{item.mark},
+            #{item.name},
+            #{item.description},
+            #{item.type},
+            #{item.createUserId},
+            #{item.updateUserId})
+        </foreach>
+    </insert>
+
+    <!-- 根据id查询数据 -->
+    <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT r.id,
+               r.mark,
+               r.NAME,
+               r.description,
+               r.type,
+               r.create_user_id,
+               r.create_time,
+               r.update_user_id,
+               r.update_time,
+               p.id          AS p_id,
+               p.mark        AS p_mark,
+               p.description AS p_description,
+               p.create_time AS p_create_time,
+               p.update_time AS p_update_time
+        FROM role r
+                 LEFT JOIN permission p
+                           ON p.id IN (SELECT permission_id FROM role_permission WHERE role_id = #{id, jdbcType=VARCHAR})
+        WHERE r.id = #{id, jdbcType=VARCHAR}
+    </select>
+
+    <!-- 获取所有内置角色数据 -->
+    <select id="selectAllBuiltInData" resultType="cn.yang.authentication.authorization.user.dal.RoleDo">
+        select
+        <include refid="Base_Query"/>
+        from role
+        where type = 0
+    </select>
+
+    <!-- 获取分页检索数量 -->
+    <select id="selectPageCount" resultType="java.lang.Integer">
+        select count(0) from role
+        <where>
+            <if test="query.searchText != null and query.searchText != ''">
+                name like concat('%', #{query.searchText, jdbcType=VARCHAR}, '%')
+            </if>
+        </where>
+    </select>
+
+    <!-- 获取分页数据 -->
+    <select id="selectPageData" resultType="cn.yang.authentication.authorization.user.dal.RoleDo">
+        select
+        <include refid="Base_Query"/>
+        from role
+        <where>
+            <if test="query.searchText != null and query.searchText != ''">
+                name like concat('%', #{query.searchText, jdbcType=VARCHAR}, '%')
+            </if>
+        </where>
+        limit #{query.offset}, #{query.size}
+    </select>
+
+    <!-- 根据角色名称获取角色数据 -->
+    <select id="selectByName" resultType="cn.yang.authentication.authorization.user.dal.RoleDo">
+        select
+        <include refid="Base_Query"/>
+        from role
+        where name = #{name, jdbcType=VARCHAR}
+    </select>
+
+    <!-- 根据角色id列表获取角色列表数据 -->
+    <select id="selectByIds" resultType="cn.yang.authentication.authorization.user.dal.RoleDo">
+        select
+        <include refid="Base_Query"/>
+        from role where id in
+        <foreach collection="list" item="item" close=")" open="(" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
+    <!-- 根据角色标识获取角色数据 -->
+    <select id="selectByMark" resultMap="BaseResultMap">
+        SELECT r.id,
+               r.mark,
+               r.NAME,
+               r.description,
+               r.type,
+               r.create_user_id,
+               r.create_time,
+               r.update_user_id,
+               r.update_time,
+               p.id          AS p_id,
+               p.mark        AS p_mark,
+               p.description AS p_description,
+               p.create_time AS p_create_time,
+               p.update_time AS p_update_time
+        FROM role r
+                 LEFT JOIN permission p ON p.id IN (SELECT permission_id FROM role_permission WHERE role_id = r.id)
+        WHERE r.mark = #{mark, jdbcType=BIGINT}
+    </select>
+
+    <!-- 根据角色id列表获取角色详情列表数据 -->
+    <select id="selectDetailListByIds" resultMap="BaseResultMap">
+        SELECT
+        r.id,
+        r.mark,
+        r.NAME,
+        r.description,
+        r.type,
+        r.create_user_id,
+        r.create_time,
+        r.update_user_id,
+        r.update_time,
+        p.id AS p_id,
+        p.mark AS p_mark,
+        p.description AS p_description,
+        p.create_time AS p_create_time,
+        p.update_time AS p_update_time
+        FROM
+        role r
+        LEFT JOIN permission p ON p.id IN ( SELECT permission_id FROM role_permission WHERE role_id = r.id )
+        WHERE
+        r.id in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <!-- 根据id修改数据(过滤为空数据) -->
+    <update id="updateSelectiveById" parameterType="cn.yang.authentication.authorization.user.entity.Role">
+        update role
+        <set>
+            <if test="mark != null and mark != ''">mark = #{mark, jdbcType=VARCHAR},</if>
+            <if test="name != null and name != ''">name = #{name, jdbcType=VARCHAR},</if>
+            <if test="description != null and description != ''">description = #{description, jdbcType=VARCHAR},</if>
+            <if test="type != null">type = #{type, jdbcType=TINYINT},</if>
+            <if test="createUserId != null">create_user_id = #{createUserId, jdbcType=BIGINT},</if>
+            <if test="updateUserId != null">update_user_id = #{updateUserId, jdbcType=BIGINT},</if>
+        </set>
+        where id = #{id, jdbcType=VARCHAR}
+    </update>
+
+    <!-- 修改数据根据id -->
+    <update id="updateById" parameterType="cn.yang.authentication.authorization.user.entity.Role">
+        update role
+        set name           = #{name, jdbcType=VARCHAR},
+            description    = #{description, jdbcType=VARCHAR},
+            update_user_id = #{updateUserId, jdbcType=BIGINT},
+        where id = #{id, jdbcType=VARCHAR}
+    </update>
+
+    <!-- 批量修改角色数据 -->
+    <update id="batchUpdateDate">
+        <foreach collection="list" item="item" separator=";">
+            update role
+            set name = #{item.name, jdbcType=VARCHAR},
+            description = #{item.description, jdbcType=VARCHAR},
+            update_user_id = #{item.createUserId, jdbcType=BIGINT}
+            where id = #{item.id, jdbcType=BIGINT}
+        </foreach>
+    </update>
+
+    <!-- 根据id删除数据 -->
+    <delete id="deleteById" parameterType="java.lang.String">
+        delete
+        from role
+        where id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+    <!-- 根据角色id列表删除角色数据 -->
+    <delete id="deleteByIdList">
+        delete from role where id in
+        <foreach collection="list" item="item" close=")" open="(" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+</mapper>

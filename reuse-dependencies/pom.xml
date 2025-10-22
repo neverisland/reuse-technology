@@ -38,6 +38,12 @@
                 <artifactId>security-crypto-starter</artifactId>
                 <version>${revision}</version>
             </dependency>
+
+            <dependency>
+                <groupId>cn.yang.authentication.authorization</groupId>
+                <artifactId>authentication-authorization-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

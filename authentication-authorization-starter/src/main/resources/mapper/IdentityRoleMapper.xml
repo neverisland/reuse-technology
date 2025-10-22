@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yang.authentication.authorization.user.mapper.IdentityRoleMapper">
+
+    <resultMap id="BaseResultMap" type="cn.yang.authentication.authorization.user.dal.IdentityRoleDo">
+        <id property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="identityId" column="identity_id" jdbcType="VARCHAR"/>
+        <result property="roleId" column="role_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Query">
+        id, identity_id, role_id
+    </sql>
+
+    <!-- 新增数据 -->
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="cn.yang.authentication.authorization.user.dal.IdentityRoleDo" useGeneratedKeys="true">
+        insert into identity_role (<include refid="Base_Query"/>)
+        values (
+        #{id, jdbcType=VARCHAR},
+        #{identityId, jdbcType=VARCHAR},
+        #{roleId, jdbcType=VARCHAR} )
+    </insert>
+
+    <!-- 新增数据(过滤为空数据) -->
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="cn.yang.authentication.authorization.user.dal.IdentityRoleDo" useGeneratedKeys="true">
+        insert into identity_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">id,</if>
+            <if test="identityId != null and identityId != ''">identity_id,</if>
+            <if test="roleId != null and roleId != ''">role_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">#{id, jdbcType=VARCHAR},</if>
+            <if test="identityId != null and identityId != ''">#{identityId, jdbcType=VARCHAR},</if>
+            <if test="roleId != null and roleId != ''">#{roleId, jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+
+    <!--批量插入员工数据-->
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into identity_role(<include refid="Base_Query"/>)
+        values
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item.id},
+            #{item.identityId},
+            #{item.roleId}
+        </foreach>
+    </insert>
+
+    <!-- 根据id查询数据 -->
+    <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Query"/>
+        from identity_role
+        where id = #{id, jdbcType=VARCHAR}
+    </select>
+
+    <!-- 根据id修改数据(过滤为空数据) -->
+    <update id="updateSelectiveById" parameterType="cn.yang.authentication.authorization.user.dal.IdentityRoleDo">
+        update identity_role
+        <set>
+            <if test="identityId != null and identityId != ''">identity_id = #{identityId, jdbcType=VARCHAR},</if>
+            <if test="roleId != null and roleId != ''">role_id = #{roleId, jdbcType=VARCHAR},</if>
+        </set>
+        where id = #{id, jdbcType=VARCHAR}
+    </update>
+
+    <!-- 修改数据根据id -->
+    <update id="updateById" parameterType="cn.yang.authentication.authorization.user.dal.IdentityRoleDo">
+        update identity_role
+        set identity_id = #{identityId, jdbcType=VARCHAR},
+            role_id     = #{roleId, jdbcType=VARCHAR}
+        where id = #{id, jdbcType=VARCHAR}
+    </update>
+
+    <!-- 根据身份id删除数据 -->
+    <delete id="deleteByIdentityId" parameterType="java.lang.String">
+        delete
+        from identity_role
+        where identity_id = #{identityId, jdbcType=VARCHAR}
+    </delete>
+</mapper>

@@ -15,14 +15,17 @@
         <main.basedir>${basedir}</main.basedir>
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
         <flatten-maven-plugin.version>1.6.0</flatten-maven-plugin.version>
-        <java.version>17</java.version>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <java.version>21</java.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 
-        <spring-boot.version>3.5.0</spring-boot.version>
+        <spring-boot.version>3.5.6</spring-boot.version>
 
         <bcprov-jdk18on.version>1.78.1</bcprov-jdk18on.version>
+        <mybatis-spring-boot-starter.version>3.0.4</mybatis-spring-boot-starter.version>
+        <sa-token.version>1.41.0</sa-token.version>
+        <pinyin4j.version>2.5.1</pinyin4j.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -34,6 +37,7 @@
         <module>common-data-structures</module>
         <module>foundational-capability-starter</module>
         <module>security-crypto-starter</module>
+        <module>authentication-authorization-starter</module>
     </modules>
 
     <dependencyManagement>
@@ -51,6 +55,45 @@
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcprov-jdk18on</artifactId>
                 <version>${bcprov-jdk18on.version}</version>
+            </dependency>
+
+            <!-- 自行构建的工具类复用依赖 -->
+            <dependency>
+                <groupId>cn.yang.foundational.capability</groupId>
+                <artifactId>foundational-capability-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 自行构建的加密解密依赖 -->
+            <dependency>
+                <groupId>cn.yang.security.crypto</groupId>
+                <artifactId>security-crypto-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 自行构建的通用数据结构依赖 -->
+            <dependency>
+                <groupId>cn.yang.common.data</groupId>
+                <artifactId>common-data-structures</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-spring-boot-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-redis-jackson</artifactId>
+                <version>${sa-token.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.belerweb</groupId>
+                <artifactId>pinyin4j</artifactId>
+                <version>${pinyin4j.version}</version>
             </dependency>
 
         </dependencies>
@@ -75,6 +118,22 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

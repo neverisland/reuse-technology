@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yang.authentication.authorization.user.mapper.IdentityMapper">
+
+    <resultMap id="BaseResultMap" type="cn.yang.authentication.authorization.user.dal.IdentityDo">
+        <id property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+        <result property="enabled" column="enabled" jdbcType="TINYINT"/>
+        <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+
+        <collection property="roleList" ofType="cn.yang.authentication.authorization.user.dal.RoleDo"
+                    javaType="java.util.List">
+            <id property="id" column="r_id" jdbcType="VARCHAR"/>
+            <result property="mark" column="r_mark" jdbcType="VARCHAR"/>
+            <result property="name" column="r_name" jdbcType="VARCHAR"/>
+            <result property="description" column="r_description" jdbcType="VARCHAR"/>
+            <result property="type" column="r_type" jdbcType="TINYINT"/>
+            <result property="createUserId" column="r_create_user_id" jdbcType="BIGINT"/>
+            <result property="createTime" column="r_create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateUserId" column="r_update_user_id" jdbcType="BIGINT"/>
+            <result property="updateTime" column="r_update_time" jdbcType="TIMESTAMP"/>
+        </collection>
+    </resultMap>
+
+    <sql id="Base_Query">
+        id, user_id, enabled, create_user_id, create_time, update_user_id,
+         update_time
+    </sql>
+
+    <!-- 新增数据 -->
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cn.yang.authentication.authorization.user.dal.IdentityDo"
+            useGeneratedKeys="true">
+        insert into identity (id, user_id, enabled, create_user_id, update_user_id)
+        values (
+        #{id, jdbcType=VARCHAR},
+        #{userId, jdbcType=VARCHAR},
+        #{enabled, jdbcType=TINYINT},
+        #{createUserId, jdbcType=BIGINT},
+        #{updateUserId, jdbcType=BIGINT})
+    </insert>
+
+    <!-- 新增数据(过滤为空数据) -->
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.yang.authentication.authorization.user.dal.IdentityDo"
+            useGeneratedKeys="true">
+        insert into identity
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">id,</if>
+            <if test="userId != null and userId != ''">user_id,</if>
+            <if test="enabled != null">enabled,</if>
+            <if test="createUserId != null and createUserId != ''">create_user_id,</if>
+            <if test="updateUserId != null and updateUserId != ''">update_user_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">#{id, jdbcType=VARCHAR},</if>
+            <if test="userId != null and userId != ''">#{userId, jdbcType=VARCHAR},</if>
+            <if test="enabled != null">#{enabled, jdbcType=TINYINT},</if>
+            <if test="createUserId != null and createUserId != ''">#{createUserId, jdbcType=VARCHAR},</if>
+            <if test="updateUserId != null and updateUserId != ''">#{updateUserId, jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+
+    <!--批量插入用户数据-->
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into identity(id, user_id, enabled, create_user_id, update_user_id)
+        values
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item.id},
+            #{item.userId},
+            #{item.enabled},
+            #{item.createUserId},
+            #{item.updateUserId}
+        </foreach>
+    </insert>
+
+    <!-- 根据id查询数据 -->
+    <select id="selectDetailById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+            i.id,
+            i.user_id,
+            i.enabled,
+            i.create_user_id,
+            i.create_time,
+            i.update_user_id,
+            i.update_time,
+            r.id AS r_id,
+            r.mark AS r_mark,
+            r.NAME AS r_name,
+            r.description AS r_description,
+            r.type AS r_type,
+            r.create_user_id AS r_create_user_id,
+            r.create_time AS r_create_time,
+            r.update_user_id AS r_update_user_id,
+            r.update_time AS r_update_time
+        FROM identity i
+            LEFT JOIN role r ON r.id IN ( SELECT role_id FROM identity_role WHERE identity_id = #{id, jdbcType=VARCHAR} )
+        WHERE
+            i.id = #{id, jdbcType=VARCHAR}
+    </select>
+
+    <!-- 根据用户id获取身份列表数据 -->
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Query"/>
+        from identity
+        where user_id = #{userId, jdbcType=VARCHAR}
+    </select>
+
+    <!-- 根据身份id获取身份详情  -->
+    <select id="selectById" resultType="cn.yang.authentication.authorization.user.dal.IdentityDo">
+        select
+        <include refid="Base_Query"/>
+        from identity
+        where id = #{id, jdbcType=VARCHAR}
+    </select>
+
+    <!-- 根据id修改数据(过滤为空数据) -->
+    <update id="updateSelectiveById" parameterType="cn.yang.authentication.authorization.user.dal.IdentityDo">
+        update identity
+        <set>
+            <if test="userId != null and userId != ''">user_id = #{userId, jdbcType=VARCHAR},</if>
+            <if test="enabled != null">enabled = #{enabled, jdbcType=TINYINT},</if>
+            <if test="createUserId != null and createUserId != ''">create_user_id = #{createUserId, jdbcType=VARCHAR},</if>
+            <if test="updateUserId != null and updateUserId != ''">update_user_id = #{updateUserId, jdbcType=VARCHAR},</if>
+        </set>
+        where id = #{id, jdbcType=VARCHAR}
+    </update>
+
+    <!-- 修改数据根据id -->
+    <update id="updateById" parameterType="cn.yang.authentication.authorization.user.dal.IdentityDo">
+        update identity
+        set user_id        = #{userId, jdbcType=VARCHAR},
+            enabled        = #{enabled, jdbcType=TINYINT},
+            create_user_id = #{createUserId, jdbcType=BIGINT},
+            update_user_id = #{updateUserId, jdbcType=BIGINT},
+        where id = #{id, jdbcType=VARCHAR}
+    </update>
+
+    <!-- 根据id删除数据 -->
+    <delete id="deleteByUserId" parameterType="java.lang.String">
+        delete
+        from identity
+        where user_id = #{userId, jdbcType=VARCHAR}
+    </delete>
+</mapper>
