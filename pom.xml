@@ -38,6 +38,7 @@
         <module>foundational-capability-starter</module>
         <module>security-crypto-starter</module>
         <module>authentication-authorization-starter</module>
+        <module>sliding-verification-starter</module>
     </modules>
 
     <dependencyManagement>
