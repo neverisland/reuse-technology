@@ -1,11 +1,16 @@
 package cn.yang.foundational.capability.sliding.verification.code.exception;
 
+import java.io.Serial;
+
 /**
  * 滑动验证码校验异常
  *
  * @author : 未见清海
  */
 public class SlidingVerificationCodeException extends Exception {
+
+    @Serial
+    private static final long serialVersionUID = -2373569285123489178L;
 
     /**
      * Constructs a new runtime exception with the specified detail message.
