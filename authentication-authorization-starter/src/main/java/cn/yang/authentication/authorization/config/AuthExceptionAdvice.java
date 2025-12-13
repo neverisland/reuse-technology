@@ -1,7 +1,7 @@
 package cn.yang.authentication.authorization.config;
 
 import cn.dev33.satoken.exception.NotLoginException;
-import cn.yang.common.data.structure.enums.ErrorStatusCodeEnum;
+import cn.yang.authentication.authorization.enums.ErrorStatusCodeEnum;
 import cn.yang.common.data.structure.enums.StatusCodeEnum;
 import cn.yang.common.data.structure.exception.BusinessException;
 import cn.yang.common.data.structure.vo.result.ResultFactory;

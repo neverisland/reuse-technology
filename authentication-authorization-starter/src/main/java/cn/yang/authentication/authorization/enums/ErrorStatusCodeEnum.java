@@ -1,4 +1,4 @@
-package cn.yang.common.data.structure.enums;
+package cn.yang.authentication.authorization.enums;
 
 import cn.yang.common.data.structure.vo.result.ResultCodeInterface;
 

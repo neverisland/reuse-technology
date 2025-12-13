@@ -1,4 +1,4 @@
-package cn.yang.foundational.capability.list;
+package cn.yang.foundational.capability.utils.tree;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,6 +11,7 @@ import java.util.Map;
 /**
  * 树形结构工具类
  */
+@SuppressWarnings("unused")
 public class TreeUtil {
 
     private static final ObjectMapper mapper = new ObjectMapper();
@@ -32,8 +33,7 @@ public class TreeUtil {
 
         // 将对象列表转换成 Map 列表
         List<Map<String, Object>> dataList = mapper.convertValue(
-                list, new TypeReference<List<Map<String, Object>>>() {
-                }
+                list, new TypeReference<>() {}
         );
 
         List<Map<String, Object>> result = new ArrayList<>();

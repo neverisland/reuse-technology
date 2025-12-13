@@ -13,7 +13,7 @@ import cn.yang.common.data.structure.utils.bean.BeanConvertUtils;
 import cn.yang.common.data.structure.vo.page.PageResult;
 import cn.yang.common.data.structure.vo.result.ResultFactory;
 import cn.yang.common.data.structure.vo.result.ResultVo;
-import cn.yang.common.data.structure.enums.ErrorStatusCodeEnum;
+import cn.yang.authentication.authorization.enums.ErrorStatusCodeEnum;
 import jakarta.annotation.Resource;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;

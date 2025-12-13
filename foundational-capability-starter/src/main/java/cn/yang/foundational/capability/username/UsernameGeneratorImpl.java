@@ -1,7 +1,6 @@
 package cn.yang.foundational.capability.username;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
@@ -11,9 +10,8 @@ import java.util.Random;
  *
  * @author : 未见清海
  */
+@Slf4j
 public class UsernameGeneratorImpl implements UsernameGenerator {
-
-    private static final Logger logger = LoggerFactory.getLogger(UsernameGeneratorImpl.class);
 
     private static final Random random = new Random();
 
@@ -65,7 +63,7 @@ public class UsernameGeneratorImpl implements UsernameGenerator {
             try {
                 str = new String(b, "GBK"); // 转成中文
             } catch (UnsupportedEncodingException ex) {
-                logger.error("generator username error", ex);
+                log.error("generator username error", ex);
             }
             ret.append(str);
         }

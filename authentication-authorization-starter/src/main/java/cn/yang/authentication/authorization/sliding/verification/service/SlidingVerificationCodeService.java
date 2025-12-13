@@ -6,7 +6,7 @@ import cn.yang.authentication.authorization.sliding.verification.enums.SlidingVe
 import cn.yang.authentication.authorization.sliding.verification.facade.SlidingVerificationCodeFacade;
 import cn.yang.common.data.structure.exception.BusinessException;
 import cn.yang.common.data.structure.utils.bean.BeanConvertUtils;
-import cn.yang.common.data.structure.enums.ErrorStatusCodeEnum;
+import cn.yang.authentication.authorization.enums.ErrorStatusCodeEnum;
 import cn.yang.foundational.capability.sliding.verification.code.dto.SlidingVerificationCodeGain;
 import cn.yang.foundational.capability.sliding.verification.code.dto.SlidingVerificationCodeReturn;
 import cn.yang.foundational.capability.sliding.verification.code.exception.SlidingVerificationCodeException;

@@ -11,7 +11,7 @@ import cn.yang.authentication.authorization.user.entity.User;
 import cn.yang.authentication.authorization.user.facade.UserFacade;
 import cn.yang.common.data.structure.exception.BusinessException;
 import cn.yang.common.data.structure.exception.NullDataException;
-import cn.yang.common.data.structure.enums.ErrorStatusCodeEnum;
+import cn.yang.authentication.authorization.enums.ErrorStatusCodeEnum;
 import jakarta.annotation.Resource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

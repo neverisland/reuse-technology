@@ -11,7 +11,7 @@
     <description>技术复用项目</description>
 
     <properties>
-        <revision>1.1.1</revision>
+        <revision>1.2.0</revision>
         <main.basedir>${basedir}</main.basedir>
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
         <flatten-maven-plugin.version>1.6.0</flatten-maven-plugin.version>
@@ -26,6 +26,7 @@
         <mybatis-spring-boot-starter.version>3.0.4</mybatis-spring-boot-starter.version>
         <sa-token.version>1.41.0</sa-token.version>
         <pinyin4j.version>2.5.1</pinyin4j.version>
+        <pagehelper-spring-boot-starter.version>2.1.1</pagehelper-spring-boot-starter.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -95,6 +96,12 @@
                 <groupId>com.belerweb</groupId>
                 <artifactId>pinyin4j</artifactId>
                 <version>${pinyin4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper-spring-boot-starter.version}</version>
             </dependency>
 
         </dependencies>

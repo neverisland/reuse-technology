@@ -6,7 +6,7 @@ import cn.yang.authentication.authorization.authentication.facade.Authentication
 import cn.yang.authentication.authorization.authentication.facade.AuthorizationFacade;
 import cn.yang.authentication.authorization.sliding.verification.enums.SlidingVerificationCodeBusinessEnum;
 import cn.yang.authentication.authorization.sliding.verification.facade.SlidingVerificationCodeFacade;
-import cn.yang.common.data.structure.enums.ErrorStatusCodeEnum;
+import cn.yang.authentication.authorization.enums.ErrorStatusCodeEnum;
 import cn.yang.common.data.structure.enums.StatusCodeEnum;
 import cn.yang.common.data.structure.exception.BusinessException;
 import cn.yang.common.data.structure.vo.result.ResultFactory;

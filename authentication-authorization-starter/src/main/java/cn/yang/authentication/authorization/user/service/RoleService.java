@@ -14,7 +14,7 @@ import cn.yang.common.data.structure.exception.BusinessException;
 import cn.yang.common.data.structure.exception.NullDataException;
 import cn.yang.common.data.structure.utils.bean.BeanConvertUtils;
 import cn.yang.common.data.structure.vo.page.PageResult;
-import cn.yang.common.data.structure.enums.ErrorStatusCodeEnum;
+import cn.yang.authentication.authorization.enums.ErrorStatusCodeEnum;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

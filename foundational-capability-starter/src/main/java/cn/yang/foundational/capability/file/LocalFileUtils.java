@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -21,9 +22,10 @@ import java.util.Date;
  *
  * @author : 未见清海
  */
-public class FileHandlerUtils {
+@SuppressWarnings("unused")
+public class LocalFileUtils {
 
-    private static final Logger logger = LoggerFactory.getLogger(FileHandlerUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(LocalFileUtils.class);
 
     // 定义格式
     static SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -50,7 +52,7 @@ public class FileHandlerUtils {
     public static void downloadFile(String fileUrl, String savePath) throws FileHandlerException {
         try {
             // 创建URL对象
-            URL url = new URL(fileUrl);
+            URL url = URI.create(fileUrl).toURL();
             HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
             httpConn.setRequestMethod("GET");
 
