@@ -11,7 +11,7 @@
     <description>技术复用项目</description>
 
     <properties>
-        <revision>1.2.0</revision>
+        <revision>1.2.1</revision>
         <main.basedir>${basedir}</main.basedir>
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
         <flatten-maven-plugin.version>1.6.0</flatten-maven-plugin.version>
