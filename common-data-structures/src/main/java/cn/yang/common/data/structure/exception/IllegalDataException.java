@@ -1,11 +1,16 @@
 package cn.yang.common.data.structure.exception;
 
+import java.io.Serial;
+
 /**
  * 非法数据异常
  *
  * @author : 未见清海
  */
 public class IllegalDataException extends RuntimeException {
+
+    @Serial
+    private static final long serialVersionUID = -7730987517640445965L;
 
     /**
      * Constructs a new runtime exception with the specified detail message.
